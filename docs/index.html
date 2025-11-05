@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ARCA AFIP - Facturación Electrónica API Documentation</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <redoc spec-url='../openapi/homologacion.yaml'></redoc>
+    <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"></script>
+    
+    <div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+        <select id="env-selector" style="padding: 10px; font-size: 14px; border-radius: 4px; border: 1px solid #ccc;">
+            <option value="homologacion">Homologación (Testing)</option>
+            <option value="produccion">Producción (Production)</option>
+        </select>
+    </div>
+    
+    <script>
+        const selector = document.getElementById('env-selector');
+        const redocEl = document.querySelector('redoc');
+        
+        selector.addEventListener('change', function() {
+            const env = this.value;
+            redocEl.setAttribute('spec-url', `../openapi/${env}.yaml`);
+            
+            // Reload ReDoc
+            Redoc.init('../openapi/' + env + '.yaml', {
+                scrollYOffset: 0,
+                hideDownloadButton: false,
+                expandResponses: '200,201',
+                requiredPropsFirst: true,
+                sortOperationsAlphabetically: false,
+                sortTagsAlphabetically: false
+            }, document.querySelector('redoc'));
+        });
+    </script>
+</body>
+</html>
+

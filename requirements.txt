@@ -1,0 +1,11 @@
+# Requirements for ARCA AFIP Documentation Project
+
+# PDF to Markdown conversion
+docling>=1.0.0
+
+# OpenAPI/YAML processing
+pyyaml>=6.0
+
+# XML processing (for WSDL)
+lxml>=4.9.0
+

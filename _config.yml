@@ -1,0 +1,38 @@
+# GitHub Pages Jekyll configuration
+# This file is for GitHub Pages if using Jekyll
+
+title: ARCA AFIP - Facturación Electrónica Documentation
+description: Complete documentation for ARCA AFIP Electronic Invoicing Web Services
+version: 4.0.0
+
+# Exclude files from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .git
+  - .github
+  - convert_pdf.py
+  - extract_sections.py
+  - create_openapi.py
+
+# Include files
+include:
+  - _config.yml
+  - docs/
+  - openapi/
+  - README.md
+
+# Markdown processor
+markdown: kramdown
+highlighter: rouge
+
+# Theme (if using Jekyll theme)
+# theme: minima
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
