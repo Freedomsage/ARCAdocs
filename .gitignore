@@ -30,4 +30,7 @@ dist/
 build/
 *.egg-info/
 
+# GitHub MCP Server binary
+github-mcp-server
+
 
