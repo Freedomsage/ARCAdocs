@@ -1,0 +1,1236 @@
+openapi: 3.0.3
+info:
+  title: ARCA AFIP - Facturación Electrónica Web Service (Homologación (Testing))
+  description: '# ARCA AFIP - Facturación Electrónica API
+
+
+    **Source of Truth / Fuente de Verdad / Источник истины:**
+
+    - Source Document: manual-desarrollador-ARCA-COMPG-v4-0.pdf
+
+    - Version: v4.0 (RG 4291 – Proyecto FE v4.0)
+
+    - Revision Date: 17 de Marzo de 2025
+
+    - Organization: ARCA-SDG SIT
+
+
+    This API provides access to the Electronic Invoicing service (RG 4291) for Argentina.
+
+
+    **Environment:** Homologación (Testing)
+
+    **Base URL:** https://wswhomo.afip.gov.ar/wsfev1/service.asmx
+
+
+    ## Authentication
+
+
+    All methods require a Ticket de Acceso (Access Ticket) provided by the WSAA (Web
+    Service de Autenticación y Autorización).
+
+
+    To obtain a ticket:
+
+    1. Get a digital certificate from Clave Fiscal
+
+    2. Associate it with the "Facturación Electrónica" business web service
+
+    3. Request an Access Ticket from WSAA with service="wsfe"
+
+    4. Ticket duration: 12 hours
+
+
+    For more information, visit: www.arca.gob.ar/ws
+
+    '
+  version: 4.0.0
+  contact:
+    name: ARCA Support
+    url: http://www.arca.gob.ar/ws/
+    email: wsfev1@arca.gov.ar
+servers:
+- url: https://wswhomo.afip.gov.ar/wsfev1/service.asmx
+  description: Homologación (Testing) environment
+tags:
+- name: CAESolicitar
+  description: FECAESolicitar method
+- name: TotXRequest
+  description: FECompTotXRequest method
+- name: Dummy
+  description: FEDummy method
+- name: UltimoAutorizado
+  description: FECompUltimoAutorizado method
+- name: Consultar
+  description: FECompConsultar method
+- name: CAEARegInformativo
+  description: FECAEARegInformativo method
+- name: CAEASolicitar
+  description: FECAEASolicitar method
+- name: CAEASinMovimientoConsultar
+  description: FECAEASinMovimientoConsultar method
+- name: CAEASinMovimientoInformar
+  description: FECAEASinMovimientoInformar method
+- name: CAEAConsultar
+  description: FECAEAConsultar method
+- name: Cotizacion
+  description: FEParamGetCotizacion method
+- name: TiposTributos
+  description: FEParamGetTiposTributos method
+- name: TiposMonedas
+  description: FEParamGetTiposMonedas method
+- name: TiposIva
+  description: FEParamGetTiposIva method
+- name: TiposOpcional
+  description: FEParamGetTiposOpcional method
+- name: TiposConcepto
+  description: FEParamGetTiposConcepto method
+- name: PtosVenta
+  description: FEParamGetPtosVenta method
+- name: TiposCbte
+  description: FEParamGetTiposCbte method
+- name: CondicionIvaReceptor
+  description: FEParamGetCondicionIvaReceptor method
+- name: TiposDoc
+  description: FEParamGetTiposDoc method
+- name: TiposPaises
+  description: FEParamGetTiposPaises method
+- name: Actividades
+  description: FEParamGetActividades method
+paths:
+  /FECAESolicitar:
+    post:
+      tags:
+      - CAESolicitar
+      summary: FECAESolicitar
+      description: FECAESolicitar method documentation from source PDF
+      operationId: fecaesolicitar
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: object
+              description: SOAP request body
+            example: <soap:Envelope>...</soap:Envelope>
+          application/json:
+            schema:
+              type: object
+              properties:
+                Auth:
+                  $ref: '#/components/schemas/FEAuthRequest'
+      responses:
+        '200':
+          description: Successful response / Respuesta exitosa
+          content:
+            application/xml:
+              schema:
+                type: string
+              example: <soap:Envelope>...</soap:Envelope>
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Errors:
+                    $ref: '#/components/schemas/Errors'
+                  Events:
+                    $ref: '#/components/schemas/Events'
+        '400':
+          description: Bad request / Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: Internal server error / Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  /FECompTotXRequest:
+    post:
+      tags:
+      - TotXRequest
+      summary: FECompTotXRequest
+      description: FECompTotXRequest method documentation from source PDF
+      operationId: fecomptotxrequest
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: object
+              description: SOAP request body
+            example: <soap:Envelope>...</soap:Envelope>
+          application/json:
+            schema:
+              type: object
+              properties:
+                Auth:
+                  $ref: '#/components/schemas/FEAuthRequest'
+      responses:
+        '200':
+          description: Successful response / Respuesta exitosa
+          content:
+            application/xml:
+              schema:
+                type: string
+              example: <soap:Envelope>...</soap:Envelope>
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Errors:
+                    $ref: '#/components/schemas/Errors'
+                  Events:
+                    $ref: '#/components/schemas/Events'
+        '400':
+          description: Bad request / Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: Internal server error / Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  /FEDummy:
+    post:
+      tags:
+      - Dummy
+      summary: FEDummy
+      description: FEDummy method documentation from source PDF
+      operationId: fedummy
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: object
+              description: SOAP request body
+            example: <soap:Envelope>...</soap:Envelope>
+          application/json:
+            schema:
+              type: object
+              properties:
+                Auth:
+                  $ref: '#/components/schemas/FEAuthRequest'
+      responses:
+        '200':
+          description: Successful response / Respuesta exitosa
+          content:
+            application/xml:
+              schema:
+                type: string
+              example: <soap:Envelope>...</soap:Envelope>
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Errors:
+                    $ref: '#/components/schemas/Errors'
+                  Events:
+                    $ref: '#/components/schemas/Events'
+        '400':
+          description: Bad request / Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: Internal server error / Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  /FECompUltimoAutorizado:
+    post:
+      tags:
+      - UltimoAutorizado
+      summary: FECompUltimoAutorizado
+      description: FECompUltimoAutorizado method documentation from source PDF
+      operationId: fecompultimoautorizado
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: object
+              description: SOAP request body
+            example: <soap:Envelope>...</soap:Envelope>
+          application/json:
+            schema:
+              type: object
+              properties:
+                Auth:
+                  $ref: '#/components/schemas/FEAuthRequest'
+      responses:
+        '200':
+          description: Successful response / Respuesta exitosa
+          content:
+            application/xml:
+              schema:
+                type: string
+              example: <soap:Envelope>...</soap:Envelope>
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Errors:
+                    $ref: '#/components/schemas/Errors'
+                  Events:
+                    $ref: '#/components/schemas/Events'
+        '400':
+          description: Bad request / Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: Internal server error / Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  /FECompConsultar:
+    post:
+      tags:
+      - Consultar
+      summary: FECompConsultar
+      description: FECompConsultar method documentation from source PDF
+      operationId: fecompconsultar
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: object
+              description: SOAP request body
+            example: <soap:Envelope>...</soap:Envelope>
+          application/json:
+            schema:
+              type: object
+              properties:
+                Auth:
+                  $ref: '#/components/schemas/FEAuthRequest'
+      responses:
+        '200':
+          description: Successful response / Respuesta exitosa
+          content:
+            application/xml:
+              schema:
+                type: string
+              example: <soap:Envelope>...</soap:Envelope>
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Errors:
+                    $ref: '#/components/schemas/Errors'
+                  Events:
+                    $ref: '#/components/schemas/Events'
+        '400':
+          description: Bad request / Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: Internal server error / Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  /FECAEARegInformativo:
+    post:
+      tags:
+      - CAEARegInformativo
+      summary: FECAEARegInformativo
+      description: FECAEARegInformativo method documentation from source PDF
+      operationId: fecaeareginformativo
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: object
+              description: SOAP request body
+            example: <soap:Envelope>...</soap:Envelope>
+          application/json:
+            schema:
+              type: object
+              properties:
+                Auth:
+                  $ref: '#/components/schemas/FEAuthRequest'
+      responses:
+        '200':
+          description: Successful response / Respuesta exitosa
+          content:
+            application/xml:
+              schema:
+                type: string
+              example: <soap:Envelope>...</soap:Envelope>
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Errors:
+                    $ref: '#/components/schemas/Errors'
+                  Events:
+                    $ref: '#/components/schemas/Events'
+        '400':
+          description: Bad request / Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: Internal server error / Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  /FECAEASolicitar:
+    post:
+      tags:
+      - CAEASolicitar
+      summary: FECAEASolicitar
+      description: FECAEASolicitar method documentation from source PDF
+      operationId: fecaeasolicitar
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: object
+              description: SOAP request body
+            example: <soap:Envelope>...</soap:Envelope>
+          application/json:
+            schema:
+              type: object
+              properties:
+                Auth:
+                  $ref: '#/components/schemas/FEAuthRequest'
+      responses:
+        '200':
+          description: Successful response / Respuesta exitosa
+          content:
+            application/xml:
+              schema:
+                type: string
+              example: <soap:Envelope>...</soap:Envelope>
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Errors:
+                    $ref: '#/components/schemas/Errors'
+                  Events:
+                    $ref: '#/components/schemas/Events'
+        '400':
+          description: Bad request / Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: Internal server error / Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  /FECAEASinMovimientoConsultar:
+    post:
+      tags:
+      - CAEASinMovimientoConsultar
+      summary: FECAEASinMovimientoConsultar
+      description: FECAEASinMovimientoConsultar method documentation from source PDF
+      operationId: fecaeasinmovimientoconsultar
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: object
+              description: SOAP request body
+            example: <soap:Envelope>...</soap:Envelope>
+          application/json:
+            schema:
+              type: object
+              properties:
+                Auth:
+                  $ref: '#/components/schemas/FEAuthRequest'
+      responses:
+        '200':
+          description: Successful response / Respuesta exitosa
+          content:
+            application/xml:
+              schema:
+                type: string
+              example: <soap:Envelope>...</soap:Envelope>
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Errors:
+                    $ref: '#/components/schemas/Errors'
+                  Events:
+                    $ref: '#/components/schemas/Events'
+        '400':
+          description: Bad request / Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: Internal server error / Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  /FECAEASinMovimientoInformar:
+    post:
+      tags:
+      - CAEASinMovimientoInformar
+      summary: FECAEASinMovimientoInformar
+      description: FECAEASinMovimientoInformar method documentation from source PDF
+      operationId: fecaeasinmovimientoinformar
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: object
+              description: SOAP request body
+            example: <soap:Envelope>...</soap:Envelope>
+          application/json:
+            schema:
+              type: object
+              properties:
+                Auth:
+                  $ref: '#/components/schemas/FEAuthRequest'
+      responses:
+        '200':
+          description: Successful response / Respuesta exitosa
+          content:
+            application/xml:
+              schema:
+                type: string
+              example: <soap:Envelope>...</soap:Envelope>
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Errors:
+                    $ref: '#/components/schemas/Errors'
+                  Events:
+                    $ref: '#/components/schemas/Events'
+        '400':
+          description: Bad request / Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: Internal server error / Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  /FECAEAConsultar:
+    post:
+      tags:
+      - CAEAConsultar
+      summary: FECAEAConsultar
+      description: FECAEAConsultar method documentation from source PDF
+      operationId: fecaeaconsultar
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: object
+              description: SOAP request body
+            example: <soap:Envelope>...</soap:Envelope>
+          application/json:
+            schema:
+              type: object
+              properties:
+                Auth:
+                  $ref: '#/components/schemas/FEAuthRequest'
+      responses:
+        '200':
+          description: Successful response / Respuesta exitosa
+          content:
+            application/xml:
+              schema:
+                type: string
+              example: <soap:Envelope>...</soap:Envelope>
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Errors:
+                    $ref: '#/components/schemas/Errors'
+                  Events:
+                    $ref: '#/components/schemas/Events'
+        '400':
+          description: Bad request / Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: Internal server error / Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  /FEParamGetCotizacion:
+    post:
+      tags:
+      - Cotizacion
+      summary: FEParamGetCotizacion
+      description: FEParamGetCotizacion method documentation from source PDF
+      operationId: feparamgetcotizacion
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: object
+              description: SOAP request body
+            example: <soap:Envelope>...</soap:Envelope>
+          application/json:
+            schema:
+              type: object
+              properties:
+                Auth:
+                  $ref: '#/components/schemas/FEAuthRequest'
+      responses:
+        '200':
+          description: Successful response / Respuesta exitosa
+          content:
+            application/xml:
+              schema:
+                type: string
+              example: <soap:Envelope>...</soap:Envelope>
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Errors:
+                    $ref: '#/components/schemas/Errors'
+                  Events:
+                    $ref: '#/components/schemas/Events'
+        '400':
+          description: Bad request / Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: Internal server error / Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  /FEParamGetTiposTributos:
+    post:
+      tags:
+      - TiposTributos
+      summary: FEParamGetTiposTributos
+      description: FEParamGetTiposTributos method documentation from source PDF
+      operationId: feparamgettipostributos
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: object
+              description: SOAP request body
+            example: <soap:Envelope>...</soap:Envelope>
+          application/json:
+            schema:
+              type: object
+              properties:
+                Auth:
+                  $ref: '#/components/schemas/FEAuthRequest'
+      responses:
+        '200':
+          description: Successful response / Respuesta exitosa
+          content:
+            application/xml:
+              schema:
+                type: string
+              example: <soap:Envelope>...</soap:Envelope>
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Errors:
+                    $ref: '#/components/schemas/Errors'
+                  Events:
+                    $ref: '#/components/schemas/Events'
+        '400':
+          description: Bad request / Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: Internal server error / Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  /FEParamGetTiposMonedas:
+    post:
+      tags:
+      - TiposMonedas
+      summary: FEParamGetTiposMonedas
+      description: FEParamGetTiposMonedas method documentation from source PDF
+      operationId: feparamgettiposmonedas
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: object
+              description: SOAP request body
+            example: <soap:Envelope>...</soap:Envelope>
+          application/json:
+            schema:
+              type: object
+              properties:
+                Auth:
+                  $ref: '#/components/schemas/FEAuthRequest'
+      responses:
+        '200':
+          description: Successful response / Respuesta exitosa
+          content:
+            application/xml:
+              schema:
+                type: string
+              example: <soap:Envelope>...</soap:Envelope>
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Errors:
+                    $ref: '#/components/schemas/Errors'
+                  Events:
+                    $ref: '#/components/schemas/Events'
+        '400':
+          description: Bad request / Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: Internal server error / Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  /FEParamGetTiposIva:
+    post:
+      tags:
+      - TiposIva
+      summary: FEParamGetTiposIva
+      description: FEParamGetTiposIva method documentation from source PDF
+      operationId: feparamgettiposiva
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: object
+              description: SOAP request body
+            example: <soap:Envelope>...</soap:Envelope>
+          application/json:
+            schema:
+              type: object
+              properties:
+                Auth:
+                  $ref: '#/components/schemas/FEAuthRequest'
+      responses:
+        '200':
+          description: Successful response / Respuesta exitosa
+          content:
+            application/xml:
+              schema:
+                type: string
+              example: <soap:Envelope>...</soap:Envelope>
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Errors:
+                    $ref: '#/components/schemas/Errors'
+                  Events:
+                    $ref: '#/components/schemas/Events'
+        '400':
+          description: Bad request / Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: Internal server error / Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  /FEParamGetTiposOpcional:
+    post:
+      tags:
+      - TiposOpcional
+      summary: FEParamGetTiposOpcional
+      description: FEParamGetTiposOpcional method documentation from source PDF
+      operationId: feparamgettiposopcional
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: object
+              description: SOAP request body
+            example: <soap:Envelope>...</soap:Envelope>
+          application/json:
+            schema:
+              type: object
+              properties:
+                Auth:
+                  $ref: '#/components/schemas/FEAuthRequest'
+      responses:
+        '200':
+          description: Successful response / Respuesta exitosa
+          content:
+            application/xml:
+              schema:
+                type: string
+              example: <soap:Envelope>...</soap:Envelope>
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Errors:
+                    $ref: '#/components/schemas/Errors'
+                  Events:
+                    $ref: '#/components/schemas/Events'
+        '400':
+          description: Bad request / Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: Internal server error / Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  /FEParamGetTiposConcepto:
+    post:
+      tags:
+      - TiposConcepto
+      summary: FEParamGetTiposConcepto
+      description: FEParamGetTiposConcepto method documentation from source PDF
+      operationId: feparamgettiposconcepto
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: object
+              description: SOAP request body
+            example: <soap:Envelope>...</soap:Envelope>
+          application/json:
+            schema:
+              type: object
+              properties:
+                Auth:
+                  $ref: '#/components/schemas/FEAuthRequest'
+      responses:
+        '200':
+          description: Successful response / Respuesta exitosa
+          content:
+            application/xml:
+              schema:
+                type: string
+              example: <soap:Envelope>...</soap:Envelope>
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Errors:
+                    $ref: '#/components/schemas/Errors'
+                  Events:
+                    $ref: '#/components/schemas/Events'
+        '400':
+          description: Bad request / Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: Internal server error / Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  /FEParamGetPtosVenta:
+    post:
+      tags:
+      - PtosVenta
+      summary: FEParamGetPtosVenta
+      description: FEParamGetPtosVenta method documentation from source PDF
+      operationId: feparamgetptosventa
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: object
+              description: SOAP request body
+            example: <soap:Envelope>...</soap:Envelope>
+          application/json:
+            schema:
+              type: object
+              properties:
+                Auth:
+                  $ref: '#/components/schemas/FEAuthRequest'
+      responses:
+        '200':
+          description: Successful response / Respuesta exitosa
+          content:
+            application/xml:
+              schema:
+                type: string
+              example: <soap:Envelope>...</soap:Envelope>
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Errors:
+                    $ref: '#/components/schemas/Errors'
+                  Events:
+                    $ref: '#/components/schemas/Events'
+        '400':
+          description: Bad request / Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: Internal server error / Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  /FEParamGetTiposCbte:
+    post:
+      tags:
+      - TiposCbte
+      summary: FEParamGetTiposCbte
+      description: FEParamGetTiposCbte method documentation from source PDF
+      operationId: feparamgettiposcbte
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: object
+              description: SOAP request body
+            example: <soap:Envelope>...</soap:Envelope>
+          application/json:
+            schema:
+              type: object
+              properties:
+                Auth:
+                  $ref: '#/components/schemas/FEAuthRequest'
+      responses:
+        '200':
+          description: Successful response / Respuesta exitosa
+          content:
+            application/xml:
+              schema:
+                type: string
+              example: <soap:Envelope>...</soap:Envelope>
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Errors:
+                    $ref: '#/components/schemas/Errors'
+                  Events:
+                    $ref: '#/components/schemas/Events'
+        '400':
+          description: Bad request / Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: Internal server error / Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  /FEParamGetCondicionIvaReceptor:
+    post:
+      tags:
+      - CondicionIvaReceptor
+      summary: FEParamGetCondicionIvaReceptor
+      description: FEParamGetCondicionIvaReceptor method documentation from source
+        PDF
+      operationId: feparamgetcondicionivareceptor
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: object
+              description: SOAP request body
+            example: <soap:Envelope>...</soap:Envelope>
+          application/json:
+            schema:
+              type: object
+              properties:
+                Auth:
+                  $ref: '#/components/schemas/FEAuthRequest'
+      responses:
+        '200':
+          description: Successful response / Respuesta exitosa
+          content:
+            application/xml:
+              schema:
+                type: string
+              example: <soap:Envelope>...</soap:Envelope>
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Errors:
+                    $ref: '#/components/schemas/Errors'
+                  Events:
+                    $ref: '#/components/schemas/Events'
+        '400':
+          description: Bad request / Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: Internal server error / Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  /FEParamGetTiposDoc:
+    post:
+      tags:
+      - TiposDoc
+      summary: FEParamGetTiposDoc
+      description: FEParamGetTiposDoc method documentation from source PDF
+      operationId: feparamgettiposdoc
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: object
+              description: SOAP request body
+            example: <soap:Envelope>...</soap:Envelope>
+          application/json:
+            schema:
+              type: object
+              properties:
+                Auth:
+                  $ref: '#/components/schemas/FEAuthRequest'
+      responses:
+        '200':
+          description: Successful response / Respuesta exitosa
+          content:
+            application/xml:
+              schema:
+                type: string
+              example: <soap:Envelope>...</soap:Envelope>
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Errors:
+                    $ref: '#/components/schemas/Errors'
+                  Events:
+                    $ref: '#/components/schemas/Events'
+        '400':
+          description: Bad request / Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: Internal server error / Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  /FEParamGetTiposPaises:
+    post:
+      tags:
+      - TiposPaises
+      summary: FEParamGetTiposPaises
+      description: FEParamGetTiposPaises method documentation from source PDF
+      operationId: feparamgettipospaises
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: object
+              description: SOAP request body
+            example: <soap:Envelope>...</soap:Envelope>
+          application/json:
+            schema:
+              type: object
+              properties:
+                Auth:
+                  $ref: '#/components/schemas/FEAuthRequest'
+      responses:
+        '200':
+          description: Successful response / Respuesta exitosa
+          content:
+            application/xml:
+              schema:
+                type: string
+              example: <soap:Envelope>...</soap:Envelope>
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Errors:
+                    $ref: '#/components/schemas/Errors'
+                  Events:
+                    $ref: '#/components/schemas/Events'
+        '400':
+          description: Bad request / Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: Internal server error / Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  /FEParamGetActividades:
+    post:
+      tags:
+      - Actividades
+      summary: FEParamGetActividades
+      description: FEParamGetActividades method documentation from source PDF
+      operationId: feparamgetactividades
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: object
+              description: SOAP request body
+            example: <soap:Envelope>...</soap:Envelope>
+          application/json:
+            schema:
+              type: object
+              properties:
+                Auth:
+                  $ref: '#/components/schemas/FEAuthRequest'
+      responses:
+        '200':
+          description: Successful response / Respuesta exitosa
+          content:
+            application/xml:
+              schema:
+                type: string
+              example: <soap:Envelope>...</soap:Envelope>
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Errors:
+                    $ref: '#/components/schemas/Errors'
+                  Events:
+                    $ref: '#/components/schemas/Events'
+        '400':
+          description: Bad request / Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: Internal server error / Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+components:
+  schemas:
+    FEAuthRequest:
+      type: object
+      required:
+      - Token
+      - Sign
+      - Cuit
+      description: Authentication information / Información de autenticación
+      properties:
+        Token:
+          type: string
+          description: Token returned by WSAA / Token devuelto por el WSAA
+        Sign:
+          type: string
+          description: Sign returned by WSAA / Sign devuelto por el WSAA
+        Cuit:
+          type: integer
+          format: int64
+          description: CUIT of the taxpayer (represented or issuer) / CUIT del contribuyente
+            (representado o emisor)
+    Error:
+      type: object
+      description: Error information / Información de error
+      properties:
+        Code:
+          type: integer
+          description: Error code / Código de error
+        Msg:
+          type: string
+          description: Descriptive error message / Mensaje descriptivo del error
+    Errors:
+      type: object
+      description: Array of errors / Array de errores
+      properties:
+        Err:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    Event:
+      type: object
+      description: Event information / Información de evento
+      properties:
+        Code:
+          type: integer
+          description: Event code / Código de evento
+        Msg:
+          type: string
+          description: Event message / Mensaje del evento
+    Events:
+      type: object
+      description: Array of events / Array de eventos
+      properties:
+        Evt:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
