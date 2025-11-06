@@ -25,66 +25,75 @@
     </style>
 </head>
 <body>
-    <redoc spec-url='openapi/homologacion.yaml'></redoc>
-    <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"></script>
-    
+    <div id="redoc-container"></div>
     <select id="env-selector">
         <option value="homologacion">Homologación (Testing)</option>
         <option value="produccion">Producción (Production)</option>
     </select>
     
+    <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"></script>
     <script>
         let redocInstance = null;
+        let currentSpecUrl = 'openapi/homologacion.yaml';
         
         // Initialize ReDoc
         function initRedoc(specUrl) {
-            const container = document.querySelector('redoc');
-            if (redocInstance) {
-                // Clear existing instance
-                container.innerHTML = '';
-            }
+            const container = document.getElementById('redoc-container');
             
-            Redoc.init(specUrl, {
-                scrollYOffset: 0,
-                hideDownloadButton: false,
-                expandResponses: '200,201',
-                requiredPropsFirst: true,
-                sortOperationsAlphabetically: false,
-                sortTagsAlphabetically: false,
-                theme: {
-                    colors: {
-                        primary: {
-                            main: '#32329f'
+            // Clear container
+            if (container) {
+                container.innerHTML = '';
+                
+                // Initialize ReDoc
+                redocInstance = Redoc.init(specUrl, {
+                    scrollYOffset: 0,
+                    hideDownloadButton: false,
+                    expandResponses: '200,201',
+                    requiredPropsFirst: true,
+                    sortOperationsAlphabetically: false,
+                    sortTagsAlphabetically: false,
+                    theme: {
+                        colors: {
+                            primary: {
+                                main: '#32329f'
+                            }
                         }
                     }
-                }
-            }, container, (err) => {
-                if (err) {
-                    console.error('ReDoc initialization error:', err);
-                } else {
-                    redocInstance = true;
-                }
-            });
+                }, container);
+                
+                currentSpecUrl = specUrl;
+            }
         }
         
-        // Wait for Redoc to be available
-        if (typeof Redoc !== 'undefined') {
-            initRedoc('openapi/homologacion.yaml');
+        // Wait for both DOM and ReDoc script to load
+        function init() {
+            if (typeof Redoc !== 'undefined' && document.getElementById('redoc-container')) {
+                initRedoc(currentSpecUrl);
+                
+                // Setup environment selector
+                const selector = document.getElementById('env-selector');
+                if (selector) {
+                    selector.addEventListener('change', function() {
+                        const env = this.value;
+                        const specUrl = `openapi/${env}.yaml`;
+                        
+                        if (specUrl !== currentSpecUrl) {
+                            initRedoc(specUrl);
+                        }
+                    });
+                }
+            } else {
+                // Retry after a short delay
+                setTimeout(init, 100);
+            }
+        }
+        
+        // Start initialization when everything is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
         } else {
-            window.addEventListener('load', () => {
-                initRedoc('openapi/homologacion.yaml');
-            });
+            window.addEventListener('load', init);
         }
-        
-        // Environment selector
-        const selector = document.getElementById('env-selector');
-        selector.addEventListener('change', function() {
-            const env = this.value;
-            const specUrl = `openapi/${env}.yaml`;
-            const redocEl = document.querySelector('redoc');
-            redocEl.setAttribute('spec-url', specUrl);
-            initRedoc(specUrl);
-        });
     </script>
 </body>
 </html>
